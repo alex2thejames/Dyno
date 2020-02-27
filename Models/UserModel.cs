@@ -1,0 +1,43 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System;
+namespace Dyno.Models
+{
+    public class User
+    {
+    [Key]
+    public int UserId {get;set;}
+
+    [Required]
+    [MinLength(2)]
+    public string FirstName {get;set;}
+    
+    [Required]
+    [MinLength(2)]
+    public string LastName {get;set;}
+    
+    [Required]
+    [EmailAddress]
+    public string Email {get;set;}
+
+    
+    [DataType(DataType.Password)]
+    [Required]
+    public string Password {get;set;}
+    
+    public List<User> Friends {get;set;}
+
+    public List<Interest> Interests {get;set;}
+
+    public DateTime CreatedAt {get;set;} = DateTime.Now;
+    
+    public DateTime UpdatedAt {get;set;} = DateTime.Now;
+    // Will not be mapped to your users table!
+    [NotMapped]
+    [Compare("Password")]
+    [DataType(DataType.Password)]
+    [Display(Name = "Confirm Password")]
+    public string Confirm {get;set;}
+    }
+}
